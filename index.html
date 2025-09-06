@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chérif Créateur - Plateforme Web</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Styles CSS pour l'apparence, inchangés et fonctionnels */
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.5s; }
+        .modal { display: none; }
+        .modal.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .gradient-text { background: linear-gradient(135deg, #3b82f6, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-glow:hover { box-shadow: 0 0 15px 2px rgba(239, 68, 68, 0.4); }
+        .ai-message { max-width: 85%; width: fit-content; word-wrap: break-word; }
+        .ai-message.user { background-color: #3b82f6; color: white; border-radius: 1.25rem 1.25rem 0.25rem 1.25rem; align-self: flex-end; }
+        .ai-message.assistant { background-color: #e5e7eb; color: #111827; border-radius: 1.25rem 1.25rem 1.25rem 0.25rem; align-self: flex-start; }
+        .is-listening { animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- =========== HEADER =========== -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-40 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <a href="#" id="logo-btn" class="text-2xl font-bold gradient-text">Chérif Créateur</a>
+            <div id="auth-links" class="flex items-center gap-2"></div>
+        </nav>
+    </header>
+
+    <!-- =========== PAGES =========== -->
+    <main>
+        <div id="home-page" class="page active">
+            <section class="text-center py-20 lg:py-32 px-4 bg-white"><h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">On <span class="gradient-text">Construit</span> le Web de Demain.</h1><p class="max-w-2xl mx-auto text-lg text-gray-600 mb-8">De l'idée brillante à la réalité digitale. Nous créons des expériences web sur-mesure qui captivent, convertissent et performent.</p><a href="#services" class="inline-block bg-red-500 text-white font-bold text-lg px-8 py-4 rounded-lg shadow-lg hover:bg-red-600 transition-transform transform hover:scale-105 btn-glow">Voir nos solutions</a></section>
+            <section id="services" class="py-20 px-4"><div class="container mx-auto"><h2 class="text-3xl font-bold text-center mb-12">Des Offres Claires Pour des Projets Ambitieux</h2><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition-transform duration-300"><h3 class="text-xl font-bold text-blue-600 mb-2">Offre Essentiel</h3><p class="text-4xl font-bold mb-4">250 000 <span class="text-lg font-medium text-gray-500">FCFA</span></p><ul class="space-y-2 text-gray-600"><li>✔️ Site vitrine (5 pages)</li><li>✔️ Design adaptatif</li><li>✔️ Formulaire de contact</li></ul></div><div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition-transform duration-300 ring-2 ring-red-500"><h3 class="text-xl font-bold text-red-500 mb-2">Offre Avancé</h3><p class="text-4xl font-bold mb-4">500 000 <span class="text-lg font-medium text-gray-500">FCFA</span></p><ul class="space-y-2 text-gray-600"><li>✔️ Tout de l'offre Essentiel</li><li>✔️ Système de réservation / Blog</li><li>✔️ Intégration avancée</li></ul></div><div class="bg-white rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition-transform duration-300"><h3 class="text-xl font-bold text-gray-800 mb-2">Offre Premium</h3><p class="text-4xl font-bold mb-4">1 500 000 <span class="text-lg font-medium text-gray-500">FCFA</span></p><ul class="space-y-2 text-gray-600"><li>✔️ Application sur mesure complète</li><li>✔️ Interfaces Admin, Employé, Client</li><li>✔️ Paiement en ligne & Suivi</li><li>✔️ <strong>Assistant IA "Chérif"</strong></li></ul></div></div><p class="text-center mt-8 text-gray-500 italic">Un acompte de 50% est requis. Remboursement garanti !</p></div></section>
+            <section id="contact" class="bg-white py-20 px-4"><div class="container mx-auto text-center"><h2 class="text-3xl font-bold mb-4">Prêt à Lancer Votre Projet ?</h2><p class="text-gray-600 mb-8 max-w-xl mx-auto">Contactez-nous. Nous sommes disponibles pour discuter de vos idées.</p><div class="flex flex-col md:flex-row justify-center items-center gap-8"><div class="flex items-center gap-3"><a href="mailto:Macherif9876@gmail.com" class="font-semibold hover:text-red-500 transition">Macherif9876@gmail.com</a></div><div class="flex items-center gap-3"><div class="flex flex-col items-start"><a href="tel:+221705491330" class="font-semibold hover:text-red-500 transition">+221 70 549 13 30</a><a href="tel:+221705966696" class="font-semibold hover:text-red-500 transition">+221 70 596 66 96</a></div></div></div></div></section>
+        </div>
+        <div id="dashboard-page" class="page container mx-auto p-8"><h1 class="text-3xl font-bold mb-4">Mon Espace Client</h1><p id="welcome-message"></p></div>
+        <div id="admin-page" class="page container mx-auto p-8"><h1 class="text-3xl font-bold mb-4">Panneau Administrateur</h1></div>
+    </main>
+    
+    <!-- =========== MODALS =========== -->
+    <div id="register-modal" class="modal fixed inset-0 bg-black/50 z-50 items-center justify-center p-4">
+        <div id="register-card" class="bg-white p-8 rounded-lg w-full max-w-md space-y-4">
+            <form id="register-form" class="space-y-4"><h2 class="text-2xl font-bold">Créer votre Espace</h2><input name="name" type="text" placeholder="Votre nom complet" required class="w-full p-3 border rounded-lg"/><input name="email" type="email" placeholder="Votre email" required class="w-full p-3 border rounded-lg"/><input name="password" type="password" placeholder="Mot de passe (6+ caractères)" required class="w-full p-3 border rounded-lg"/><p id="register-error" class="text-red-500 text-sm h-4"></p><div class="flex justify-between items-center"><button type="button" class="text-gray-600" id="close-register-modal-btn">Annuler</button><button type="submit" class="px-6 py-3 text-white bg-red-500 rounded-lg font-semibold">Créer le compte</button></div></form>
+        </div>
+    </div>
+    <div id="login-modal" class="modal fixed inset-0 bg-black/50 z-50 items-center justify-center p-4">
+         <form id="login-form" class="bg-white p-8 rounded-lg w-full max-w-md space-y-4"><h2 class="text-2xl font-bold">Se connecter</h2><input name="email" type="email" placeholder="Votre email" required class="w-full p-3 border rounded-lg"/><input name="password" type="password" placeholder="Mot de passe" required class="w-full p-3 border rounded-lg"/><p id="login-error" class="text-red-500 text-sm h-4"></p><div class="flex justify-between items-center"><button type="button" class="text-gray-600" id="close-login-modal-btn">Annuler</button><button type="submit" class="px-6 py-3 text-white bg-red-500 rounded-lg font-semibold">Connexion</button></div></form>
+    </div>
+
+    <!-- =========== BOUTON ET MODAL IA =========== -->
+    <button id="ai-float-btn" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 bg-red-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform btn-glow"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0m7 6v4m0 0H9m3 0h3m-3-11a3 3 0 013 3v5a3 3 0 01-6 0v-5a3 3 0 013-3z"></path></svg></button>
+    <div id="ai-modal" class="modal fixed inset-0 bg-black/50 z-50 items-center justify-center p-4">
+        <div id="ai-chat-container" class="bg-white rounded-xl shadow-2xl w-full max-w-md h-[70vh] flex flex-col overflow-hidden">
+            <div class="p-4 border-b flex justify-between items-center"><h3 class="font-semibold text-lg">Assistant Chérif</h3><button id="ai-voice-toggle-btn" class="p-2 rounded-full hover:bg-gray-200"></button></div>
+            <div id="ai-messages" class="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col"></div>
+            <div class="p-3 border-t flex items-center gap-2"><input type="text" id="ai-input" placeholder="Votre message..." class="flex-1 p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" /><button id="ai-mic-btn" class="p-3 rounded-full transition bg-gray-200 text-gray-700"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0m7 6v4m0 0H9m3 0h3m-3-11a3 3 0 013 3v5a3 3 0 01-6 0v-5a3 3 0 013-3z"></path></svg></button><button id="ai-send-btn" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></button></div>
+        </div>
+    </div>
+
+    <!-- =========== SCRIPTS =========== -->
+    <!-- // MODIFIÉ : Utilisation de la version 11+ modulaire de Firebase, plus moderne -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const firebaseConfig = {"apiKey":"AIzaSyAoFjRPn87t2diyyEUmoZ7qIS5jrPhN81k","authDomain":"cherif-1-d8bdf.firebaseapp.com","projectId":"cherif-1-d8bdf","storageBucket":"cherif-1-d8bdf.appspot.com","messagingSenderId":"451223510905","appId":"1:451223510905:web:5a2c930dca14de62dd59a8"};
+            const geminiApiKey = "AIzaSyBC4ebYhYeTTVZtH6HodRrXqKCpEPGGkgs";
+            
+            // // MODIFIÉ : Initialisation moderne de Firebase
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+
+            const pages = document.querySelectorAll('.page');
+            const modals = document.querySelectorAll('.modal');
+            function showPage(pageId) { pages.forEach(p => p.classList.remove('active')); document.getElementById(pageId)?.classList.add('active'); }
+            function showModal(modalId) { document.getElementById(modalId)?.classList.add('active'); }
+            function closeModal() { modals.forEach(m => m.classList.remove('active')); }
+
+            const authLinks = document.getElementById('auth-links');
+            onAuthStateChanged(auth, async (user) => {
+                if (user && user.emailVerified) { // MODIFIÉ : On vérifie si l'utilisateur existe ET si son email est vérifié
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const userDoc = await getDoc(userDocRef);
+                    const userData = userDoc.data();
+                    
+                    authLinks.innerHTML = `<button id="dashboard-btn" class="font-semibold text-gray-700 hover:text-red-500">Mon Espace</button><button id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg">Déconnexion</button>`;
+                    
+                    const targetPage = userData.role === 'admin' ? 'admin-page' : 'dashboard-page';
+                    showPage(targetPage);
+                    if (targetPage === 'dashboard-page') { document.getElementById('welcome-message').textContent = `Bienvenue, ${userData.name}.`; }
+                    
+                    document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+                    document.getElementById('dashboard-btn').addEventListener('click', () => showPage(targetPage));
+                } else {
+                    authLinks.innerHTML = `<button id="login-btn" class="px-4 py-2 text-sm font-medium text-blue-600">Se connecter</button><button id="register-btn" class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg btn-glow">Créer un compte</button>`;
+                    showPage('home-page');
+                    document.getElementById('login-btn').addEventListener('click', () => showModal('login-modal'));
+                    document.getElementById('register-btn').addEventListener('click', () => showModal('register-modal'));
+                }
+            });
+
+            document.getElementById('register-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target; const name = form.name.value; const email = form.email.value; const password = form.password.value; const errorEl = document.getElementById('register-error');
+                errorEl.textContent = '';
+                try {
+                    const usersRef = collection(db, 'users');
+                    const existingUsers = await getDocs(usersRef);
+                    const role = existingUsers.empty ? 'admin' : 'client';
+
+                    const cred = await createUserWithEmailAndPassword(auth, email, password);
+                    
+                    // NOUVEAU : On envoie l'email de vérification
+                    await sendEmailVerification(cred.user);
+                    
+                    await setDoc(doc(db, 'users', cred.user.uid), { name, email, role, createdAt: serverTimestamp() });
+                    
+                    // NOUVEAU : On affiche un message de succès à l'utilisateur
+                    document.getElementById('register-card').innerHTML = `
+                        <h2 class="text-2xl font-bold text-green-600">Compte créé !</h2>
+                        <p class="text-gray-700">Un email de vérification a été envoyé à <strong>${email}</strong>.</p>
+                        <p class="text-gray-700">Veuillez cliquer sur le lien dans l'email pour activer votre compte, puis connectez-vous.</p>
+                        <button type="button" class="mt-4 w-full px-6 py-3 text-white bg-red-500 rounded-lg font-semibold" id="close-success-btn">Fermer</button>
+                    `;
+                    document.getElementById('close-success-btn').addEventListener('click', closeModal);
+
+                } catch (error) { 
+                    if (error.code === 'auth/email-already-in-use') {
+                        errorEl.textContent = "Cette adresse email est déjà utilisée.";
+                    } else {
+                        errorEl.textContent = "Une erreur est survenue. Réessayez.";
+                    }
+                }
+            });
+
+            document.getElementById('login-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target; const email = form.email.value; const password = form.password.value; const errorEl = document.getElementById('login-error');
+                errorEl.textContent = '';
+                try { 
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password); 
+                    // NOUVEAU : On vérifie si l'email est vérifié AVANT de fermer la modale
+                    if (!userCredential.user.emailVerified) {
+                        errorEl.textContent = "Veuillez d'abord vérifier votre adresse email. (Vérifiez votre boîte de réception)";
+                        signOut(auth); // On déconnecte l'utilisateur s'il n'est pas vérifié
+                        return;
+                    }
+                    closeModal(); 
+                } catch (error) { 
+                    errorEl.textContent = "Email ou mot de passe incorrect."; 
+                }
+            });
+
+            const aiModal = document.getElementById('ai-modal'); const aiMessages = document.getElementById('ai-messages'); const aiInput = document.getElementById('ai-input'); const aiMicBtn = document.getElementById('ai-mic-btn'); const aiSendBtn = document.getElementById('ai-send-btn'); const aiVoiceToggleBtn = document.getElementById('ai-voice-toggle-btn');
+            let voiceEnabled = true; let isListening = false;
+            
+            function updateVoiceToggleIcon() { aiVoiceToggleBtn.innerHTML = voiceEnabled ? `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>` : `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clip-rule="evenodd" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l4-4m0 4l-4-4" /></svg>`; }
+            function speakText(text) { if (voiceEnabled && 'speechSynthesis' in window) { speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'fr-FR'; speechSynthesis.speak(utterance); } }
+            function addMessage(sender, text) { const msgDiv = document.createElement('div'); msgDiv.className = `ai-message ${sender} p-3 rounded-2xl`; msgDiv.textContent = text; aiMessages.appendChild(msgDiv); aiMessages.scrollTop = aiMessages.scrollHeight; }
+            function handleNavigation(text) { const lowerText = text.toLowerCase(); if (lowerText.includes('service') || lowerText.includes('offre')) { document.getElementById('services').scrollIntoView({ behavior: 'smooth' }); } else if (lowerText.includes('contact') || lowerText.includes('appeler')) { document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); } }
+
+            async function sendMessage() {
+                const userText = aiInput.value.trim(); if (userText === '') return;
+                addMessage('user', userText); aiInput.value = ''; addMessage('assistant', '...');
+                try {
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`;
+                    const systemPrompt = "Vous êtes Chérif, l'assistant IA de 'Chérif Créateur'. Répondez aux questions sur les services et les prix (Essentiel: 250 000 FCFA, Avancé: 500 000 FCFA, Premium: 1 500 000 FCFA). Soyez amical et pro en français. Si on vous demande de voir un service ou de contacter, incluez le mot clé 'service' ou 'contact' dans votre réponse.";
+                    
+                    // MODIFIÉ : Séparation des instructions système et du message utilisateur (meilleure pratique)
+                    const payload = {
+                        contents: [{ parts: [{ text: userText }] }],
+                        systemInstruction: {
+                            parts: [{ text: systemPrompt }]
+                        },
+                    };
+
+                    const response = await fetch(apiUrl, { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify(payload) 
+                    });
+                    
+                    if (!response.ok) {
+                        const errorBody = await response.text();
+                        throw new Error(`API Error ${response.status}: ${errorBody}`);
+                    }
+                    const result = await response.json();
+                    
+                    if (!result.candidates || result.candidates.length === 0 || !result.candidates[0].content.parts[0].text) {
+                        throw new Error("Aucune réponse valide de l'IA.");
+                    }
+                    const botResponse = result.candidates[0].content.parts[0].text;
+                    
+                    aiMessages.removeChild(aiMessages.lastChild); addMessage('assistant', botResponse);
+                    speakText(botResponse); handleNavigation(botResponse);
+                } catch (error) { 
+                    console.error("Erreur Gemini:", error); 
+                    aiMessages.removeChild(aiMessages.lastChild); 
+                    addMessage('assistant', "Désolé, l'assistant ne répond pas pour le moment. Veuillez réessayer plus tard."); 
+                }
+            }
+
+            aiMicBtn.addEventListener('click', () => {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) return alert("Reconnaissance vocale non supportée.");
+                if (isListening) return;
+                const recognition = new SpeechRecognition(); recognition.lang = 'fr-FR';
+                recognition.onstart = () => { isListening = true; aiMicBtn.classList.add('is-listening', 'bg-blue-500', 'text-white'); };
+                recognition.onend = () => { isListening = false; aiMicBtn.classList.remove('is-listening', 'bg-blue-500', 'text-white'); };
+                recognition.onresult = (event) => { aiInput.value = event.results[0][0].transcript; sendMessage(); };
+                recognition.onerror = (event) => console.error("Erreur vocale:", event.error);
+                recognition.start();
+            });
+
+            document.getElementById('logo-btn').addEventListener('click', (e) => { e.preventDefault(); showPage('home-page'); });
+            document.getElementById('ai-float-btn').addEventListener('click', () => { showModal('ai-modal'); if (aiMessages.children.length === 0) { const welcome = 'Bonjour ! Je suis Chérif. Comment puis-je vous aider ?'; addMessage('assistant', welcome); speakText(welcome); } });
+            aiModal.addEventListener('click', (e) => { if (e.target === aiModal) closeModal(); });
+            document.getElementById('close-register-modal-btn').addEventListener('click', closeModal);
+            document.getElementById('close-login-modal-btn').addEventListener('click', closeModal);
+            aiVoiceToggleBtn.addEventListener('click', () => { voiceEnabled = !voiceEnabled; updateVoiceToggleIcon(); });
+            aiSendBtn.addEventListener('click', sendMessage);
+            aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+            updateVoiceToggleIcon();
+        });
+    </script>
+</body>
+</html>
