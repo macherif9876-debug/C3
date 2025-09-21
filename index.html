@@ -5,109 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chérif Créateur - Accueil</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
         
         body {
-            font-family: 'Roboto Mono', monospace;
-            background-color: #0d1a26; /* Fond très sombre */
-            color: #ecf0f1; /* Texte clair */
+            font-family: 'Lato', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
-            position: relative;
         }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, rgba(0,0,0,0) 70%); /* Lueur rouge */
-            animation: pulse 10s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
         .container {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.05); /* Arrière-plan semi-transparent */
-            padding: 50px;
+            background-color: #ffffff;
+            padding: 60px;
             border-radius: 10px;
-            border: 1px solid rgba(255, 0, 0, 0.2); /* Bordure rouge légère */
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); /* Ombre rouge */
-            max-width: 700px; /* Plus large pour les boutons séparés */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
             width: 90%;
-            z-index: 1;
         }
-
         h1 {
-            font-size: 2.8em; /* Plus grand */
-            letter-spacing: 4px; /* Plus d'espacement */
-            text-shadow: 0 0 8px #ff0000; /* Ombre rouge plus intense */
+            font-size: 2.8em;
+            letter-spacing: 1px;
+            color: #007bff;
             margin-bottom: 15px;
-            color: #ff0000; /* Titre rouge */
         }
-
         p {
             font-size: 1.2em;
-            line-height: 1.8;
-            color: #bdc3c7;
-            margin-bottom: 50px; /* Plus d'espace sous le paragraphe */
+            line-height: 1.6;
+            color: #6c757d;
+            margin-bottom: 40px;
         }
-
         .btn-container {
-            display: flex; /* Utilise flexbox pour séparer les boutons */
-            justify-content: space-between; /* Espacement maximal entre les boutons */
-            padding: 0 20px; /* Un peu de marge sur les côtés */
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
-
         .btn-container a {
             text-decoration: none;
             color: #fff;
-            background-color: #ff0000; /* Bouton principal rouge */
-            padding: 15px 35px; /* Boutons plus grands */
+            background-color: #007bff;
+            padding: 15px 35px;
             border-radius: 5px;
             font-weight: bold;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Ombre rouge */
-            min-width: 200px; /* Largeur minimale pour les boutons */
-            text-align: center;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease;
         }
-
         .btn-container a:hover {
-            background-color: #cc0000; /* Rouge plus foncé au survol */
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7); /* Ombre rouge plus intense au survol */
-            transform: translateY(-3px); /* Effet léger de soulèvement */
+            background-color: #0056b3;
         }
-
         .btn-container a.secondary {
-            background-color: transparent;
-            border: 2px solid #ff0000; /* Bordure rouge pour le bouton secondaire */
-            color: #ff0000; /* Texte rouge pour le secondaire */
-            box-shadow: none;
+            background-color: #6c757d;
         }
-
         .btn-container a.secondary:hover {
-            background-color: #ff0000; /* Fond rouge au survol */
-            color: #0d1a26; /* Texte sombre au survol */
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+            background-color: #5a6268;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Chérif Créateur</h1>
-        <p>L'avenir de votre présence en ligne commence ici. Créez des sites et des applications de nouvelle génération.</p>
+        <p>Construisez votre présence en ligne avec des solutions web professionnelles et des applications mobiles performantes.</p>
         <div class="btn-container">
             <a href="#">Créer un compte</a>
             <a href="#" class="secondary">Se connecter</a>
@@ -115,4 +75,3 @@
     </div>
 </body>
 </html>
-
