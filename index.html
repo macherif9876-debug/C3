@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+              <!DOCTYPE html>
 <html lang="fr" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chérif Créateur - Plateforme Web Moderne</title>
     
+    <link rel="manifest" href="/manifest.json">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -46,6 +47,8 @@
         }
         .is-listening { animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(14, 165, 233, 0); } 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); } }
+        .typing-effect::after { content: '|'; animation: blink-caret 1s step-end infinite; }
+        @keyframes blink-caret { from, to { opacity: 0; } 50% { opacity: 1; } }
     </style>
 </head>
 <body class="antialiased">
@@ -89,7 +92,15 @@
         <div id="ai-chat-container" class="modal-card bg-white dark:bg-slate-800 rounded-t-xl sm:rounded-xl shadow-2xl w-full max-w-lg h-[80vh] sm:h-[70vh] flex flex-col overflow-hidden">
             <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center"><h3 class="font-semibold text-lg">Assistant Chérif</h3><button id="ai-voice-toggle-btn" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"></button></div>
             <div id="ai-messages" class="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col"></div>
-            <div class="p-3 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2"><input type="text" id="ai-input" placeholder="Votre message..." class="flex-1 p-3 border rounded-full bg-transparent border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-500" /><button id="ai-mic-btn" class="p-3 rounded-full transition bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0m7 6v4m0 0H9m3 0h3m-3-11a3 3 0 013 3v5a3 3 0 01-6 0v-5a3 3 0 013-3z"></path></svg></button><button id="ai-send-btn" class="bg-sky-600 text-white p-3 rounded-full hover:bg-sky-700 transition"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></button></div>
+            <div class="p-3 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2">
+                <input type="text" id="ai-input" placeholder="Votre message..." class="flex-1 p-3 border rounded-full bg-transparent border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-500" />
+                <button id="ai-mic-btn" class="p-3 rounded-full transition bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0m7 6v4m0 0H9m3 0h3m-3-11a3 3 0 013 3v5a3 3 0 01-6 0v-5a3 3 0 013-3z"></path></svg>
+                </button>
+                <button id="ai-send-btn" class="bg-sky-600 text-white p-3 rounded-full hover:bg-sky-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -209,7 +220,199 @@
             });
             
             // --- SECTION IA AMÉLIORÉE ---
-            const aiModal = document.getElementById('ai-modal'); const aiMessages = document.getElementById('ai-messages'); const aiInput = document.getElementById('ai-input'); const aiMicBtn = document.getElementById('ai-mic-btn'); const aiSendBtn = document.getElementById('ai-send-btn'); const aiVoiceToggleBtn = document.getElementById('ai-voice-toggle-btn');
-            let voiceEnabled = true; let isListening = false;
+            const aiModal = document.getElementById('ai-modal'); 
+            const aiMessages = document.getElementById('ai-messages'); 
+            const aiInput = document.getElementById('ai-input'); 
+            const aiMicBtn = document.getElementById('ai-mic-btn'); 
+            const aiSendBtn = document.getElementById('ai-send-btn'); 
+            const aiVoiceToggleBtn = document.getElementById('ai-voice-toggle-btn');
             
-            function updateVoiceToggleIcon() { aiVoiceToggleBtn.innerHTML = voiceEnabled ? `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>` : `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.
+            let voiceEnabled = false; 
+            let isListening = false;
+            let speaking = false;
+            let maleVoice = null;
+            
+            const findMaleVoice = () => {
+                const voices = speechSynthesis.getVoices();
+                return voices.find(voice => voice.lang === 'fr-FR' && (voice.name.includes('male') || voice.name.includes('homme')));
+            };
+
+            const populateVoices = () => {
+                maleVoice = findMaleVoice();
+                if (!maleVoice) {
+                    console.warn("Aucune voix d'homme en français n'a été trouvée.");
+                }
+            };
+            
+            if ('speechSynthesis' in window) {
+                if (speechSynthesis.onvoiceschanged !== undefined) {
+                    speechSynthesis.onvoiceschanged = populateVoices;
+                } else {
+                    populateVoices();
+                }
+            }
+            
+            function updateVoiceToggleIcon() { 
+                if (voiceEnabled) {
+                    aiVoiceToggleBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>`; 
+                } else {
+                    aiVoiceToggleBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l4-4m0 4l-4-4"></path></svg>`;
+                }
+            }
+
+            function speakText(text) { 
+                if (!voiceEnabled || speaking) return;
+                
+                speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text); 
+                utterance.lang = 'fr-FR'; 
+                
+                if (maleVoice) {
+                    utterance.voice = maleVoice;
+                }
+                
+                speaking = true;
+                utterance.onend = () => { speaking = false; };
+                utterance.onerror = (e) => { speaking = false; console.error("Erreur de synthèse vocale:", e.error); };
+                
+                speechSynthesis.speak(utterance); 
+            }
+
+            async function typeText(element, text, speed = 25) {
+                element.classList.add('typing-effect');
+                element.textContent = '';
+                return new Promise(resolve => {
+                    let i = 0;
+                    const typingInterval = setInterval(() => {
+                        if (i < text.length) {
+                            element.textContent += text.charAt(i);
+                            aiMessages.scrollTop = aiMessages.scrollHeight;
+                            i++;
+                        } else {
+                            clearInterval(typingInterval);
+                            element.classList.remove('typing-effect');
+                            resolve();
+                        }
+                    }, speed);
+                });
+            }
+
+            function addMessage(sender, text, isTyping = false) { 
+                const msgDiv = document.createElement('div'); 
+                msgDiv.className = `ai-message ${sender} p-3 rounded-2xl max-w-xs sm:max-w-md`; 
+                aiMessages.appendChild(msgDiv); 
+                if (isTyping) {
+                    return typeText(msgDiv, text).then(() => {
+                        return msgDiv;
+                    });
+                }
+                msgDiv.textContent = text;
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+                return Promise.resolve(msgDiv);
+            }
+
+            function handleNavigation(text) { 
+                const lowerText = text.toLowerCase(); 
+                if (lowerText.includes('service') || lowerText.includes('offre')) {
+                    document.getElementById('services').scrollIntoView({ behavior: 'smooth' }); 
+                } else if (lowerText.includes('contact') || lowerText.includes('appeler')) {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); 
+                }
+            }
+
+            async function sendMessage() {
+                const userText = aiInput.value.trim(); 
+                if (userText === '') return;
+                
+                addMessage('user', userText); 
+                aiInput.value = ''; 
+                
+                const thinkingMessage = document.createElement('div');
+                thinkingMessage.className = `ai-message assistant p-3 rounded-2xl max-w-xs sm:max-w-md animate-pulse`;
+                thinkingMessage.textContent = '...';
+                aiMessages.appendChild(thinkingMessage);
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+                
+                try {
+                    const response = await fetch('/.netlify/functions/chat', { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify({ prompt: userText }) 
+                    });
+                    
+                    if (!response.ok) throw new Error(`Erreur du serveur: ${response.status}`);
+                    
+                    const result = await response.json();
+                    const botResponse = result.response;
+                    if (!botResponse) throw new Error("Aucune réponse valide de l'IA.");
+                    
+                    aiMessages.removeChild(thinkingMessage);
+                    const assistantMsgDiv = await addMessage('assistant', botResponse, true);
+                    speakText(botResponse); 
+                    handleNavigation(botResponse);
+                    
+                } catch (error) { 
+                    console.error("Erreur de communication avec l'assistant:", error); 
+                    aiMessages.removeChild(thinkingMessage); 
+                    addMessage('assistant', "Désolé, une erreur technique est survenue."); 
+                }
+            }
+
+            aiMicBtn.addEventListener('click', () => {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) { 
+                    addMessage('assistant', "Désolé, la reconnaissance vocale n'est pas supportée sur votre navigateur."); 
+                    return; 
+                }
+                if (isListening) return;
+                
+                const recognition = new SpeechRecognition(); 
+                recognition.lang = 'fr-FR';
+                recognition.interimResults = false;
+                
+                recognition.onstart = () => { 
+                    isListening = true; 
+                    aiMicBtn.classList.add('is-listening', 'bg-sky-500', 'text-white'); 
+                };
+                recognition.onend = () => { 
+                    isListening = false; 
+                    aiMicBtn.classList.remove('is-listening', 'bg-sky-500', 'text-white'); 
+                };
+                recognition.onresult = (event) => { 
+                    aiInput.value = event.results[0][0].transcript; 
+                    sendMessage(); 
+                };
+                recognition.onerror = (event) => console.error("Erreur vocale:", event.error);
+                recognition.start();
+            });
+
+            document.getElementById('logo-btn').addEventListener('click', (e) => { e.preventDefault(); showPage('home-page'); });
+            
+            document.getElementById('ai-float-btn').addEventListener('click', () => { 
+                showModal('ai-modal'); 
+                if (aiMessages.children.length === 0) { 
+                    const welcome = 'Bonjour ! Je suis Chérif, votre assistant virtuel. Comment puis-je vous aider ?'; 
+                    addMessage('assistant', welcome, true); 
+                } 
+            });
+
+            aiModal.addEventListener('click', (e) => { if (e.target.id === 'ai-modal') closeModal(); });
+            document.getElementById('close-register-modal-btn').addEventListener('click', closeModal);
+            document.getElementById('close-login-modal-btn').addEventListener('click', closeModal);
+            aiVoiceToggleBtn.addEventListener('click', () => { 
+                voiceEnabled = !voiceEnabled; 
+                updateVoiceToggleIcon(); 
+                if (!voiceEnabled) speechSynthesis.cancel();
+            });
+            aiSendBtn.addEventListener('click', sendMessage);
+            aiInput.addEventListener('keypress', (e) => { 
+                if (e.key === 'Enter' && !e.shiftKey) { 
+                    e.preventDefault(); 
+                    sendMessage(); 
+                } 
+            });
+            updateVoiceToggleIcon();
+        });
+    </script>
+</body>
+</html>
