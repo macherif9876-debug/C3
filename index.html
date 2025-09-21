@@ -1,418 +1,66 @@
-              <!DOCTYPE html>
-<html lang="fr" class="">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chérif Créateur - Plateforme Web Moderne</title>
-    
-    <link rel="manifest" href="/manifest.json">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
+    <title>Chérif Créateur - Accueil</title>
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f8fafc;
-            color: #0f172a;
-            transition: background-color 0.3s, color 0.3s;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
         }
-        html.dark body {
-            background-color: #0f172a;
-            color: #f8fafc;
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
         }
-        .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.5s ease-out; }
-        .modal { display: none; }
-        .modal.active { display: flex; animation: fadeIn 0.3s ease-out; }
-        .modal-card { animation: slideUp 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .gradient-text { background: linear-gradient(135deg, #38bdf8, #f43f5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn-glow:hover { box-shadow: 0 0 20px 5px rgba(244, 63, 94, 0.3); }
-        .ai-message.user { background-color: #0ea5e9; color: white; border-radius: 1.25rem 1.25rem 0.25rem 1.25rem; align-self: flex-end; }
-        .ai-message.assistant { 
-            background-color: #e2e8f0;
-            color: #1e293b;
-            border-radius: 1.25rem 1.25rem 1.25rem 0.25rem; 
-            align-self: flex-start; 
+        h1 {
+            color: #007bff;
+            margin-bottom: 10px;
         }
-        html.dark .ai-message.assistant {
-            background-color: #334155;
-            color: #f1f5f9;
+        p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
         }
-        .is-listening { animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(14, 165, 233, 0); } 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); } }
-        .typing-effect::after { content: '|'; animation: blink-caret 1s step-end infinite; }
-        @keyframes blink-caret { from, to { opacity: 0; } 50% { opacity: 1; } }
+        .btn-container a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-container a:hover {
+            background-color: #0056b3;
+        }
+        .btn-container a.secondary {
+            background-color: #6c757d;
+        }
+        .btn-container a.secondary:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
-<body class="antialiased">
-
-    <header class="bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-lg sticky top-0 z-40 shadow-sm border-b border-slate-200/80 dark:border-slate-800/80">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-            <a href="#" id="logo-btn" class="text-2xl font-bold gradient-text">Chérif Créateur</a>
-            <div class="flex items-center gap-4">
-                <div id="auth-links" class="flex items-center gap-2"></div>
-                <button id="theme-toggle" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
-                    <svg id="theme-icon-light" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <svg id="theme-icon-dark" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <div id="home-page" class="page active">
-            <section class="text-center py-24 lg:py-40 px-4 bg-white dark:bg-slate-900"><h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">On <span class="gradient-text">Construit</span> le Web de Demain.</h1><p class="max-w-3xl mx-auto text-lg text-slate-600 dark:text-slate-400 mb-10">De l'idée à la réalité digitale. Nous créons des expériences web sur-mesure qui captivent, convertissent et performent, avec une touche d'intelligence artificielle.</p><a href="#services" class="inline-block bg-rose-500 text-white font-bold text-lg px-8 py-4 rounded-lg shadow-lg hover:bg-rose-600 transition-all transform hover:scale-105 btn-glow">Découvrir nos solutions</a></section>
-            <section id="services" class="py-24 px-4"><div class="container mx-auto"><h2 class="text-3xl font-bold text-center mb-16 text-slate-900 dark:text-white">Des Offres Claires Pour des Projets Ambitieux</h2><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><div class="bg-white dark:bg-slate-800/50 rounded-xl shadow-lg p-8 border border-slate-200 dark:border-slate-800 transform hover:-translate-y-2 transition-transform duration-300"><h3 class="text-xl font-bold text-sky-500 mb-2">Offre Essentiel</h3><p class="text-4xl font-bold mb-4 text-slate-800 dark:text-white">250 000 <span class="text-lg font-medium text-slate-500 dark:text-slate-400">FCFA</span></p><ul class="space-y-3 text-slate-600 dark:text-slate-400"><li>✔️ Site vitrine (5 pages)</li><li>✔️ Design adaptatif</li><li>✔️ Formulaire de contact</li></ul></div><div class="bg-white dark:bg-slate-800/50 rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition-transform duration-300 ring-2 ring-rose-500"><h3 class="text-xl font-bold text-rose-500 mb-2">Offre Avancé</h3><p class="text-4xl font-bold mb-4 text-slate-800 dark:text-white">500 000 <span class="text-lg font-medium text-slate-500 dark:text-slate-400">FCFA</span></p><ul class="space-y-3 text-slate-600 dark:text-slate-400"><li>✔️ Tout de l'offre Essentiel</li><li>✔️ Système de réservation / Blog</li><li>✔️ Intégration avancée</li></ul></div><div class="bg-white dark:bg-slate-800/50 rounded-xl shadow-lg p-8 border border-slate-200 dark:border-slate-800 transform hover:-translate-y-2 transition-transform duration-300"><h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">Offre Premium</h3><p class="text-4xl font-bold mb-4 text-slate-800 dark:text-white">1 500 000 <span class="text-lg font-medium text-slate-500 dark:text-slate-400">FCFA</span></p><ul class="space-y-3 text-slate-600 dark:text-slate-400"><li>✔️ Application sur mesure complète</li><li>✔️ Interfaces Admin, Employé, Client</li><li>✔️ Paiement en ligne & Suivi</li><li>✔️ <strong>Assistant IA "Chérif"</strong></li></ul></div></div><p class="text-center mt-8 text-slate-500 dark:text-slate-400 italic">Un acompte de 50% est requis. Remboursement garanti !</p></div></section>
-            <section id="contact" class="bg-white dark:bg-slate-900 py-24 px-4"><div class="container mx-auto text-center"><h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white">Prêt à Lancer Votre Projet ?</h2><p class="text-slate-600 dark:text-slate-400 mb-8 max-w-xl mx-auto">Contactez-nous. Nous sommes disponibles pour discuter de vos idées.</p><div class="flex flex-col md:flex-row justify-center items-center gap-8 text-slate-800 dark:text-slate-200"><div class="flex items-center gap-3"><a href="mailto:Macherif9876@gmail.com" class="font-semibold hover:text-rose-500 transition">Macherif9876@gmail.com</a></div><div class="flex items-center gap-3"><div class="flex flex-col items-start"><a href="tel:+221705491330" class="font-semibold hover:text-rose-500 transition">+221 70 549 13 30</a><a href="tel:+221705966696" class="font-semibold hover:text-rose-500 transition">+221 70 596 66 96</a></div></div></div></div></section>
-        </div>
-        <div id="dashboard-page" class="page container mx-auto p-8"><h1 class="text-3xl font-bold mb-4">Mon Espace Client</h1><p id="welcome-message"></p></div>
-        <div id="admin-page" class="page container mx-auto p-8"><h1 class="text-3xl font-bold mb-4">Panneau Administrateur</h1></div>
-    </main>
-    
-    <div id="register-modal" class="modal fixed inset-0 bg-black/60 z-50 items-center justify-center p-4">
-        <div id="register-card" class="modal-card bg-white dark:bg-slate-800 p-8 rounded-lg w-full max-w-md space-y-4">
-            <form id="register-form" class="space-y-4"><h2 class="text-2xl font-bold">Créer votre Espace</h2><input name="name" type="text" placeholder="Votre nom complet" required class="w-full p-3 border rounded-lg bg-transparent border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-sky-500 focus:outline-none"/><input name="email" type="email" placeholder="Votre email" required class="w-full p-3 border rounded-lg bg-transparent border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-sky-500 focus:outline-none"/><input name="password" type="password" placeholder="Mot de passe (6+ caractères)" required class="w-full p-3 border rounded-lg bg-transparent border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-sky-500 focus:outline-none"/><p id="register-error" class="text-rose-500 text-sm h-4"></p><div class="flex justify-between items-center"><button type="button" class="text-slate-600 dark:text-slate-400" id="close-register-modal-btn">Annuler</button><button type="submit" class="px-6 py-3 text-white bg-rose-500 rounded-lg font-semibold hover:bg-rose-600 transition">Créer le compte</button></div></form>
+<body>
+    <div class="container">
+        <h1>Bienvenue chez Chérif Créateur</h1>
+        <p>Nous vous aidons à construire une présence en ligne professionnelle avec des applications et des sites web de haute qualité.</p>
+        <div class="btn-container">
+            <a href="#">Créer un compte</a>
+            <a href="#" class="secondary">Se connecter</a>
         </div>
     </div>
-    <div id="login-modal" class="modal fixed inset-0 bg-black/60 z-50 items-center justify-center p-4">
-         <form id="login-form" class="modal-card bg-white dark:bg-slate-800 p-8 rounded-lg w-full max-w-md space-y-4"><h2 class="text-2xl font-bold">Se connecter</h2><input name="email" type="email" placeholder="Votre email" required class="w-full p-3 border rounded-lg bg-transparent border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-sky-500 focus:outline-none"/><input name="password" type="password" placeholder="Mot de passe" required class="w-full p-3 border rounded-lg bg-transparent border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-sky-500 focus:outline-none"/><p id="login-error" class="text-rose-500 text-sm h-4"></p><div class="flex justify-between items-center"><button type="button" class="text-slate-600 dark:text-slate-400" id="close-login-modal-btn">Annuler</button><button type="submit" class="px-6 py-3 text-white bg-rose-500 rounded-lg font-semibold hover:bg-rose-600 transition">Connexion</button></div></form>
-    </div>
-
-    <button id="ai-float-btn" class="fixed bottom-6 right-6 z-30 bg-rose-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform btn-glow">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-    </button>
-    <div id="ai-modal" class="modal fixed inset-0 bg-black/60 z-50 items-end sm:items-center justify-center p-0 sm:p-4">
-        <div id="ai-chat-container" class="modal-card bg-white dark:bg-slate-800 rounded-t-xl sm:rounded-xl shadow-2xl w-full max-w-lg h-[80vh] sm:h-[70vh] flex flex-col overflow-hidden">
-            <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center"><h3 class="font-semibold text-lg">Assistant Chérif</h3><button id="ai-voice-toggle-btn" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"></button></div>
-            <div id="ai-messages" class="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col"></div>
-            <div class="p-3 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2">
-                <input type="text" id="ai-input" placeholder="Votre message..." class="flex-1 p-3 border rounded-full bg-transparent border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-500" />
-                <button id="ai-mic-btn" class="p-3 rounded-full transition bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0m7 6v4m0 0H9m3 0h3m-3-11a3 3 0 013 3v5a3 3 0 01-6 0v-5a3 3 0 013-3z"></path></svg>
-                </button>
-                <button id="ai-send-btn" class="bg-sky-600 text-white p-3 rounded-full hover:bg-sky-700 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const firebaseConfig = {
-              apiKey: "AIzaSyATmlK18Lvonse2soeqTafz2GEb3a38Dmk",
-              authDomain: "cherif-cr.firebaseapp.com",
-              projectId: "cherif-cr",
-              storageBucket: "cherif-cr.firebasestorage.app",
-              messagingSenderId: "301481579113",
-              appId: "1:301481579113:web:e8fbc737fa00a7c01908f8",
-              measurementId: "G-TC8XWPTYRG"
-            };
-            
-            const app = initializeApp(firebaseConfig);
-            const auth = getAuth(app);
-            const db = getFirestore(app);
-
-            const pages = document.querySelectorAll('.page');
-            const modals = document.querySelectorAll('.modal');
-            function showPage(pageId) { pages.forEach(p => p.classList.remove('active')); document.getElementById(pageId)?.classList.add('active'); }
-            function showModal(modalId) { document.getElementById(modalId)?.classList.add('active'); }
-            function closeModal() { modals.forEach(m => m.classList.remove('active')); }
-
-            // --- GESTION DU THÈME SOMBRE/CLAIR ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const lightIcon = document.getElementById('theme-icon-light');
-            const darkIcon = document.getElementById('theme-icon-dark');
-
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    lightIcon.classList.add('hidden');
-                    darkIcon.classList.remove('hidden');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    lightIcon.classList.remove('hidden');
-                    darkIcon.classList.add('hidden');
-                }
-            };
-            
-            const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            applyTheme(currentTheme);
-
-            themeToggle.addEventListener('click', () => {
-                const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
-                localStorage.setItem('theme', newTheme);
-                applyTheme(newTheme);
-            });
-
-            // Logique d'authentification (inchangée)
-            const authLinks = document.getElementById('auth-links');
-            onAuthStateChanged(auth, async (user) => {
-                if (user && user.emailVerified) {
-                    const userDocRef = doc(db, 'users', user.uid);
-                    const userDoc = await getDoc(userDocRef);
-                    if (userDoc.exists()) {
-                        const userData = userDoc.data();
-                        authLinks.innerHTML = `<button id="dashboard-btn" class="font-semibold text-slate-700 dark:text-slate-300 hover:text-rose-500 transition">Mon Espace</button><button id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-rose-500 rounded-lg hover:bg-rose-600 transition">Déconnexion</button>`;
-                        
-                        const targetPage = userData.role === 'admin' ? 'admin-page' : 'dashboard-page';
-                        showPage(targetPage);
-                        if (targetPage === 'dashboard-page') { document.getElementById('welcome-message').textContent = `Bienvenue, ${userData.name}.`; }
-                        
-                        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
-                        document.getElementById('dashboard-btn').addEventListener('click', () => showPage(targetPage));
-                    } else {
-                        signOut(auth);
-                    }
-                } else {
-                    authLinks.innerHTML = `<button id="login-btn" class="px-4 py-2 text-sm font-medium text-sky-600 dark:text-sky-500 hover:underline">Se connecter</button><button id="register-btn" class="px-4 py-2 text-sm font-medium text-white bg-rose-500 rounded-lg btn-glow hover:bg-rose-600 transition">Créer un compte</button>`;
-                    showPage('home-page');
-                    document.getElementById('login-btn').addEventListener('click', () => showModal('login-modal'));
-                    document.getElementById('register-btn').addEventListener('click', () => showModal('register-modal'));
-                }
-            });
-
-            // Inscription et Connexion (inchangés)
-            document.getElementById('register-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const form = e.target; const name = form.name.value; const email = form.email.value; const password = form.password.value; const errorEl = document.getElementById('register-error');
-                errorEl.textContent = '';
-                try {
-                    const usersRef = collection(db, 'users');
-                    const existingUsers = await getDocs(usersRef);
-                    const role = existingUsers.empty ? 'admin' : 'client';
-
-                    const cred = await createUserWithEmailAndPassword(auth, email, password);
-                    await sendEmailVerification(cred.user);
-                    await setDoc(doc(db, 'users', cred.user.uid), { name, email, role, createdAt: serverTimestamp() });
-                    
-                    document.getElementById('register-card').innerHTML = `<h2 class="text-2xl font-bold text-green-500">Compte créé !</h2><p>Un email de vérification a été envoyé à <strong>${email}</strong>.</p><p>Veuillez cliquer sur le lien dans l'email pour activer votre compte, puis connectez-vous.</p><button type="button" class="mt-4 w-full px-6 py-3 text-white bg-rose-500 rounded-lg font-semibold" id="close-success-btn">Fermer</button>`;
-                    document.getElementById('close-success-btn').addEventListener('click', closeModal);
-                } catch (error) { 
-                    if (error.code === 'auth/email-already-in-use') errorEl.textContent = "Cette adresse email est déjà utilisée.";
-                    else if (error.code === 'auth/weak-password') errorEl.textContent = "Le mot de passe est trop faible.";
-                    else errorEl.textContent = "Une erreur est survenue. Réessayez.";
-                }
-            });
-            document.getElementById('login-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const form = e.target; const email = form.email.value; const password = form.password.value; const errorEl = document.getElementById('login-error');
-                errorEl.textContent = '';
-                try { 
-                    const userCredential = await signInWithEmailAndPassword(auth, email, password); 
-                    if (!userCredential.user.emailVerified) {
-                        errorEl.textContent = "Veuillez d'abord vérifier votre email.";
-                        signOut(auth); return;
-                    }
-                    closeModal(); 
-                } catch (error) { errorEl.textContent = "Email ou mot de passe incorrect."; }
-            });
-            
-            // --- SECTION IA AMÉLIORÉE ---
-            const aiModal = document.getElementById('ai-modal'); 
-            const aiMessages = document.getElementById('ai-messages'); 
-            const aiInput = document.getElementById('ai-input'); 
-            const aiMicBtn = document.getElementById('ai-mic-btn'); 
-            const aiSendBtn = document.getElementById('ai-send-btn'); 
-            const aiVoiceToggleBtn = document.getElementById('ai-voice-toggle-btn');
-            
-            let voiceEnabled = false; 
-            let isListening = false;
-            let speaking = false;
-            let maleVoice = null;
-            
-            const findMaleVoice = () => {
-                const voices = speechSynthesis.getVoices();
-                return voices.find(voice => voice.lang === 'fr-FR' && (voice.name.includes('male') || voice.name.includes('homme')));
-            };
-
-            const populateVoices = () => {
-                maleVoice = findMaleVoice();
-                if (!maleVoice) {
-                    console.warn("Aucune voix d'homme en français n'a été trouvée.");
-                }
-            };
-            
-            if ('speechSynthesis' in window) {
-                if (speechSynthesis.onvoiceschanged !== undefined) {
-                    speechSynthesis.onvoiceschanged = populateVoices;
-                } else {
-                    populateVoices();
-                }
-            }
-            
-            function updateVoiceToggleIcon() { 
-                if (voiceEnabled) {
-                    aiVoiceToggleBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>`; 
-                } else {
-                    aiVoiceToggleBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l4-4m0 4l-4-4"></path></svg>`;
-                }
-            }
-
-            function speakText(text) { 
-                if (!voiceEnabled || speaking) return;
-                
-                speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text); 
-                utterance.lang = 'fr-FR'; 
-                
-                if (maleVoice) {
-                    utterance.voice = maleVoice;
-                }
-                
-                speaking = true;
-                utterance.onend = () => { speaking = false; };
-                utterance.onerror = (e) => { speaking = false; console.error("Erreur de synthèse vocale:", e.error); };
-                
-                speechSynthesis.speak(utterance); 
-            }
-
-            async function typeText(element, text, speed = 25) {
-                element.classList.add('typing-effect');
-                element.textContent = '';
-                return new Promise(resolve => {
-                    let i = 0;
-                    const typingInterval = setInterval(() => {
-                        if (i < text.length) {
-                            element.textContent += text.charAt(i);
-                            aiMessages.scrollTop = aiMessages.scrollHeight;
-                            i++;
-                        } else {
-                            clearInterval(typingInterval);
-                            element.classList.remove('typing-effect');
-                            resolve();
-                        }
-                    }, speed);
-                });
-            }
-
-            function addMessage(sender, text, isTyping = false) { 
-                const msgDiv = document.createElement('div'); 
-                msgDiv.className = `ai-message ${sender} p-3 rounded-2xl max-w-xs sm:max-w-md`; 
-                aiMessages.appendChild(msgDiv); 
-                if (isTyping) {
-                    return typeText(msgDiv, text).then(() => {
-                        return msgDiv;
-                    });
-                }
-                msgDiv.textContent = text;
-                aiMessages.scrollTop = aiMessages.scrollHeight;
-                return Promise.resolve(msgDiv);
-            }
-
-            function handleNavigation(text) { 
-                const lowerText = text.toLowerCase(); 
-                if (lowerText.includes('service') || lowerText.includes('offre')) {
-                    document.getElementById('services').scrollIntoView({ behavior: 'smooth' }); 
-                } else if (lowerText.includes('contact') || lowerText.includes('appeler')) {
-                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); 
-                }
-            }
-
-            async function sendMessage() {
-                const userText = aiInput.value.trim(); 
-                if (userText === '') return;
-                
-                addMessage('user', userText); 
-                aiInput.value = ''; 
-                
-                const thinkingMessage = document.createElement('div');
-                thinkingMessage.className = `ai-message assistant p-3 rounded-2xl max-w-xs sm:max-w-md animate-pulse`;
-                thinkingMessage.textContent = '...';
-                aiMessages.appendChild(thinkingMessage);
-                aiMessages.scrollTop = aiMessages.scrollHeight;
-                
-                try {
-                    const response = await fetch('/.netlify/functions/chat', { 
-                        method: 'POST', 
-                        headers: { 'Content-Type': 'application/json' }, 
-                        body: JSON.stringify({ prompt: userText }) 
-                    });
-                    
-                    if (!response.ok) throw new Error(`Erreur du serveur: ${response.status}`);
-                    
-                    const result = await response.json();
-                    const botResponse = result.response;
-                    if (!botResponse) throw new Error("Aucune réponse valide de l'IA.");
-                    
-                    aiMessages.removeChild(thinkingMessage);
-                    const assistantMsgDiv = await addMessage('assistant', botResponse, true);
-                    speakText(botResponse); 
-                    handleNavigation(botResponse);
-                    
-                } catch (error) { 
-                    console.error("Erreur de communication avec l'assistant:", error); 
-                    aiMessages.removeChild(thinkingMessage); 
-                    addMessage('assistant', "Désolé, une erreur technique est survenue."); 
-                }
-            }
-
-            aiMicBtn.addEventListener('click', () => {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                if (!SpeechRecognition) { 
-                    addMessage('assistant', "Désolé, la reconnaissance vocale n'est pas supportée sur votre navigateur."); 
-                    return; 
-                }
-                if (isListening) return;
-                
-                const recognition = new SpeechRecognition(); 
-                recognition.lang = 'fr-FR';
-                recognition.interimResults = false;
-                
-                recognition.onstart = () => { 
-                    isListening = true; 
-                    aiMicBtn.classList.add('is-listening', 'bg-sky-500', 'text-white'); 
-                };
-                recognition.onend = () => { 
-                    isListening = false; 
-                    aiMicBtn.classList.remove('is-listening', 'bg-sky-500', 'text-white'); 
-                };
-                recognition.onresult = (event) => { 
-                    aiInput.value = event.results[0][0].transcript; 
-                    sendMessage(); 
-                };
-                recognition.onerror = (event) => console.error("Erreur vocale:", event.error);
-                recognition.start();
-            });
-
-            document.getElementById('logo-btn').addEventListener('click', (e) => { e.preventDefault(); showPage('home-page'); });
-            
-            document.getElementById('ai-float-btn').addEventListener('click', () => { 
-                showModal('ai-modal'); 
-                if (aiMessages.children.length === 0) { 
-                    const welcome = 'Bonjour ! Je suis Chérif, votre assistant virtuel. Comment puis-je vous aider ?'; 
-                    addMessage('assistant', welcome, true); 
-                } 
-            });
-
-            aiModal.addEventListener('click', (e) => { if (e.target.id === 'ai-modal') closeModal(); });
-            document.getElementById('close-register-modal-btn').addEventListener('click', closeModal);
-            document.getElementById('close-login-modal-btn').addEventListener('click', closeModal);
-            aiVoiceToggleBtn.addEventListener('click', () => { 
-                voiceEnabled = !voiceEnabled; 
-                updateVoiceToggleIcon(); 
-                if (!voiceEnabled) speechSynthesis.cancel();
-            });
-            aiSendBtn.addEventListener('click', sendMessage);
-            aiInput.addEventListener('keypress', (e) => { 
-                if (e.key === 'Enter' && !e.shiftKey) { 
-                    e.preventDefault(); 
-                    sendMessage(); 
-                } 
-            });
-            updateVoiceToggleIcon();
-        });
-    </script>
 </body>
 </html>
