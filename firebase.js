@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyATmlK18Lvonse2soeqTafz2GEb3a38Dmk",
@@ -15,23 +15,43 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export { auth };
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+// Gérer l'inscription
+const signupForm = document.querySelector('form');
+if (signupForm) {
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = signupForm.querySelector('input[type="email"]').value;
+        const password = signupForm.querySelector('input[type="password"]').value;
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log("Compte créé avec succès :", user);
+                alert("Votre compte a été créé avec succès !");
+                window.location.href = 'index.html';
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Erreur lors de la création du compte :", errorMessage);
+                alert("Erreur: " + errorMessage);
+            });
+    });
+}
 
 // Gérer la connexion
 const loginForm = document.querySelector('form');
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
         const email = loginForm.querySelector('input[type="email"]').value;
         const password = loginForm.querySelector('input[type="password"]').value;
-
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log("Connexion réussie :", user);
                 alert("Connexion réussie !");
-                window.location.href = 'dashboard.html'; // Redirige vers la future page du tableau de bord
+                window.location.href = 'dashboard.html';
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -40,7 +60,6 @@ if (loginForm) {
             });
     });
 }
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 // Gérer la déconnexion
 const logoutButton = document.getElementById('logout-btn');
