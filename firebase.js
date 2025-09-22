@@ -40,3 +40,18 @@ if (loginForm) {
             });
     });
 }
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+// Gérer la déconnexion
+const logoutButton = document.getElementById('logout-btn');
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        signOut(auth)
+            .then(() => {
+                window.location.href = 'index.html';
+            })
+            .catch((error) => {
+                console.error("Erreur de déconnexion:", error);
+            });
+    });
+}
