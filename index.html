@@ -1,77 +1,2169 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chérif Créateur - Accueil</title>
+    <title>Cherif Créateur - Agence Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --accent: #8b5cf6;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --dark-bg: #0f172a;
+            --dark-text: #f8fafc;
+            --dark-card: #1e293b;
+            --dark-hover: #334155;
+        }
+
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
+            background-color: var(--light);
+            color: var(--secondary);
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-mode header {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .header-container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #fbbf24;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .hamburger {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .page {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        body.dark-mode .section-title {
+            color: var(--accent);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        body.dark-mode .service-card {
+            background: var(--dark-card);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: var(--dark-text);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        body.dark-mode .service-card:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        body.dark-mode .service-card h3 {
+            color: var(--accent);
+        }
+
+        .service-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 1rem 0;
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .service-features li {
+            color: #94a3b8;
+        }
+
+        .service-features li i {
+            color: var(--success);
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        body.dark-mode .gallery-item {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item .caption {
+            padding: 1rem;
+            background: white;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        body.dark-mode .gallery-item .caption {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .contact-info {
+            background: var(--dark-card);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: var(--dark-text);
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        body.dark-mode .contact-info h3 {
+            color: var(--accent);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 8px;
+        }
+
+        body.dark-mode .contact-item {
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .contact-item i {
+            color: var(--accent);
+        }
+
+        .contact-item a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        body.dark-mode .contact-item a {
+            color: var(--dark-text);
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        body.dark-mode .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        /* Admin Section */
+        .admin-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        body.dark-mode .admin-section {
+            background: var(--dark-card);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: var(--dark-text);
+        }
+
+        .admin-section h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        body.dark-mode .admin-section h3 {
+            color: var(--accent);
+        }
+
+        .admin-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+        }
+
+        body.dark-mode .admin-card {
+            background: linear-gradient(135deg, var(--dark-card), #0f172a);
+            color: var(--dark-text);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        body.dark-mode .admin-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .admin-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode .admin-card i {
+            color: var(--accent);
+        }
+
+        .admin-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .admin-card h4 {
+            color: var(--dark-text);
+        }
+
+        .admin-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode .admin-card p {
+            color: #94a3b8;
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .image-upload {
+            margin-bottom: 1rem;
+        }
+
+        .image-upload input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: white;
+            color: var(--secondary);
+        }
+
+        body.dark-mode .image-upload input {
+            border-color: #475569;
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .upload-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .upload-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .image-preview-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Assistant Chat */
+        .assistant-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 2000;
+        }
+
+        .assistant-button {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+            font-size: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            will-change: transform;
+        }
+
+        .assistant-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 2rem;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+        }
+
+        body.dark-mode .chat-window {
+            background: var(--dark-card);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+            color: var(--dark-text);
+        }
+
+        .chat-window.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chat-header i {
+            font-size: 1.5rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+            line-height: 1.4;
+            animation: slideIn 0.2s ease-out;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .user-message {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .assistant-message {
+            background: #f1f5f9;
+            color: var(--secondary);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        body.dark-mode .assistant-message {
+            background: #1e293b;
+            color: var(--dark-text);
+        }
+
+        .thinking {
+            color: var(--gray);
+            font-style: italic;
+            align-self: flex-start;
+        }
+
+        body.dark-mode .thinking {
+            color: #94a3b8;
+        }
+
+        /* Voice button with sound waves */
+        .voice-button {
+            position: absolute;
+            top: 50%;
+            right: -35px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--warning);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .voice-button:hover {
+            background: #d97706;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .voice-button.playing {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        /* Sound wave animation */
+        .sound-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .sound-wave span {
+            display: inline-block;
+            width: 2px;
+            height: 12px;
+            background: white;
+            margin: 0 1px;
+            border-radius: 2px;
+            animation: soundWave 1.2s infinite ease-in-out;
+        }
+
+        .sound-wave span:nth-child(2) { animation-delay: 0.2s; }
+        .sound-wave span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes soundWave {
+            0%, 100% { height: 4px; opacity: 0.4; }
+            50% { height: 16px; opacity: 1; }
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .chat-input {
+            background: #1e293b;
+            border-top-color: #334155;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 24px;
+            outline: none;
+            font-size: 1rem;
+            background: white;
+            color: var(--secondary);
+        }
+
+        body.dark-mode .chat-input input {
+            border-color: #475569;
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary);
+        }
+
+        body.dark-mode .chat-input input:focus {
+            border-color: var(--accent);
+        }
+
+        .chat-input button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .chat-input button:hover {
+            background: var(--primary-dark);
+        }
+
+        body.dark-mode .chat-input button {
+            background: var(--accent);
+        }
+
+        body.dark-mode .chat-input button:hover {
+            background: #7c3aed;
+        }
+
+        .mic-button.listening {
+            background: #ef4444;
+            animation: micPulse 2s infinite;
+        }
+
+        @keyframes micPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+        }
+
+        .typing-animation::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Code Input Modal */
+        .code-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            z-index: 3000;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            padding: 2rem;
         }
-        .container {
-            text-align: center;
-            background-color: #ffffff;
-            padding: 60px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            width: 90%;
-        }
-        h1 {
-            font-size: 2.8em;
-            letter-spacing: 1px;
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            color: #6c757d;
-            margin-bottom: 40px;
-        }
-        .btn-container {
+
+        .code-modal.active {
             display: flex;
+        }
+
+        .code-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        body.dark-mode .code-content {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .code-content h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        body.dark-mode .code-content h3 {
+            color: var(--accent);
+        }
+
+        .code-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: white;
+            color: var(--secondary);
+        }
+
+        body.dark-mode .code-input {
+            border-color: #475569;
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .code-buttons {
+            display: flex;
+            gap: 1rem;
             justify-content: center;
-            gap: 20px;
         }
-        .btn-container a {
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            padding: 15px 35px;
-            border-radius: 5px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            transition: background-color 0.3s ease;
+
+        .code-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
         }
-        .btn-container a:hover {
-            background-color: #0056b3;
+
+        .code-btn.submit {
+            background: var(--primary);
+            color: white;
         }
-        .btn-container a.secondary {
-            background-color: #6c757d;
+
+        .code-btn.cancel {
+            background: #64748b;
+            color: white;
         }
-        .btn-container a.secondary:hover {
-            background-color: #5a6268;
+
+        body.dark-mode .code-btn.submit {
+            background: var(--accent);
+        }
+
+        body.dark-mode .code-btn.cancel {
+            background: #475569;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        body.dark-mode footer {
+            background: #020617;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                background: linear-gradient(135deg, var(--primary), var(--accent));
+                width: 100%;
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1rem;
+                display: none;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .chat-window {
+                width: 90vw;
+                height: 70vh;
+                bottom: 80px;
+                right: 5%;
+            }
+
+            .services-grid, .gallery-grid, .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .voice-button {
+                right: -30px;
+                width: 25px;
+                height: 25px;
+            }
+            
+            .code-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animation for assistant responses */
+        .typing {
+            display: inline-block;
+            min-width: 2ch;
+        }
+
+        /* Success message */
+        .success-message {
+            background: var(--success);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        body.dark-mode .success-message {
+            background: #059669;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Chérif Créateur</h1>
-        <p>Construisez votre présence en ligne avec des solutions web professionnelles et des applications mobiles performantes.</p>
-        <div class="btn-container">
-            <a href="#">Créer un compte</a>
-            <a href="#" class="secondary">Se connecter</a>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Cherif<span>Créateur</span></a>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#" class="nav-link" data-page="home">Accueil</a></li>
+                    <li><a href="#" class="nav-link" data-page="services">Services</a></li>
+                    <li><a href="#" class="nav-link" data-page="gallery">Galerie</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                    <li><a href="#" class="nav-link" data-page="admin">Admin</a></li>
+                </ul>
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <h1 class="section-title">Bienvenue chez Cherif Créateur</h1>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.2rem; line-height: 1.6; color: var(--gray);">
+                    Agence spécialisée dans la création de sites web et applications web sur mesure. 
+                    Nous transformons vos idées en réalité numérique avec des solutions innovantes 
+                    et professionnelles.
+                </p>
+                <div style="margin-top: 2rem;">
+                    <img src="https://placehold.co/600x400/2563eb/white?text=Premier+Homme+Web" alt="Premier Homme Web" style="width: 100%; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Page -->
+        <section id="services" class="page">
+            <h1 class="section-title">Nos Services</h1>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card" data-service="1">
+                    <h3>Site Vitrine</h3>
+                    <div class="service-price">250 000 FCFA</div>
+                    <p>Présentez votre entreprise avec un site web professionnel et moderne.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> Design responsive (mobile & desktop)</li>
+                        <li><i class="fas fa-check-circle"></i> Optimisation SEO de base</li>
+                        <li><i class="fas fa-check-circle"></i> Formulaire de contact intégré</li>
+                        <li><i class="fas fa-check-circle"></i> Intégration réseaux sociaux</li>
+                        <li><i class="fas fa-check-circle"></i> 1 vidéo publicitaire incluse</li>
+                        <li><i class="fas fa-check-circle"></i> Maintenance 3 mois incluse</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card" data-service="2">
+                    <h3>Site Web Complet</h3>
+                    <div class="service-price">500 000 FCFA</div>
+                    <p>Solution complète pour votre présence en ligne avec fonctionnalités avancées.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> Toutes les fonctionnalités du site vitrine</li>
+                        <li><i class="fas fa-check-circle"></i> Système de gestion de contenu (CMS)</li>
+                        <li><i class="fas fa-check-circle"></i> Blog intégré</li>
+                        <li><i class="fas fa-check-circle"></i> Galerie photo professionnelle</li>
+                        <li><i class="fas fa-check-circle"></i> 3 vidéos publicitaires inclues</li>
+                        <li><i class="fas fa-check-circle"></i> Assistant vocal textuel intégré</li>
+                        <li><i class="fas fa-check-circle"></i> Maintenance 6 mois incluse</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card" data-service="3">
+                    <h3>Application Web Complète</h3>
+                    <div class="service-price">1 500 000 FCFA</div>
+                    <p>Solution tout-en-un pour les entreprises avec systèmes de réservation et paiement.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> Toutes les fonctionnalités du site complet</li>
+                        <li><i class="fas fa-check-circle"></i> Système de réservation en ligne</li>
+                        <li><i class="fas fa-check-circle"></i> Système de paiement intégré</li>
+                        <li><i class="fas fa-check-circle"></i> Interface d'administration complète</li>
+                        <li><i class="fas fa-check-circle"></i> Gestion de menus, photos, et contenu</li>
+                        <li><i class="fas fa-check-circle"></i> Assistant vocal multilingue (3 langues)</li>
+                        <li><i class="fas fa-check-circle"></i> Personnalisation selon votre marque</li>
+                        <li><i class="fas fa-check-circle"></i> Vidéos publicitaires premium</li>
+                        <li><i class="fas fa-check-circle"></i> Maintenance 12 mois incluse</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Page -->
+        <section id="gallery" class="page">
+            <h1 class="section-title">Notre Galerie</h1>
+            <div class="gallery-grid" id="galleryContainer">
+                <div class="gallery-item">
+                    <img src="https://placehold.co/300x200/2563eb/white?text=Site+Vitrine" alt="Site Vitrine">
+                    <div class="caption">Site Vitrine - Entreprise</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/300x200/8b5cf6/white?text=Site+Complet" alt="Site Complet">
+                    <div class="caption">Site Web Complet - E-commerce</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/300x200/10b981/white?text=Application+Web" alt="Application Web">
+                    <div class="caption">Application Web - Restaurant</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/300x200/f59e0b/white?text=Dashboard+Admin" alt="Dashboard Admin">
+                    <div class="caption">Interface d'Administration</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/300x200/ef4444/white?text=Mobile+App" alt="Mobile App">
+                    <div class="caption">Application Mobile Responsive</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/300x200/06b6d4/white?text=Portfolio" alt="Portfolio">
+                    <div class="caption">Portfolio Professionnel</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page">
+            <h1 class="section-title">Contactez-nous</h1>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informations de Contact</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p>Téléphone 1</p>
+                            <a href="https://wa.me/221705491330" target="_blank">70 549 13 30</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p>Téléphone 2</p>
+                            <a href="https://wa.me/221705966696" target="_blank">70 596 66 96</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p>Email</p>
+                            <a href="mailto:Macherif9876@gmail.com">Macherif9876@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p>Localisation</p>
+                            <span>Dakar, Sénégal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <h3>À propos de nous</h3>
+                    <p style="line-height: 1.6; margin-top: 1rem;">
+                        Saveteck Infotech est une entreprise mondiale durable spécialisée dans la création 
+                        de solutions web innovantes. Nous combinons technologie de pointe et design 
+                        exceptionnel pour créer des expériences numériques mémorables.
+                    </p>
+                    <p style="margin-top: 1rem; font-weight: 600; color: var(--primary);">
+                        Votre succès numérique est notre priorité absolue.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Page -->
+        <section id="admin" class="page">
+            <h1 class="section-title">Panneau d'Administration</h1>
+            <div class="admin-section">
+                <h3>Tableau de Bord</h3>
+                <div class="admin-dashboard">
+                    <div class="admin-card" data-section="services">
+                        <i class="fas fa-cogs"></i>
+                        <h4>Services</h4>
+                        <p>Gérer les offres et leurs images</p>
+                    </div>
+                    <div class="admin-card" data-section="gallery">
+                        <i class="fas fa-images"></i>
+                        <h4>Galerie</h4>
+                        <p>Gérer les images de la galerie</p>
+                    </div>
+                    <div class="admin-card" data-section="home">
+                        <i class="fas fa-home"></i>
+                        <h4>Accueil</h4>
+                        <p>Gérer l'image principale</p>
+                    </div>
+                </div>
+
+                <!-- Services Management -->
+                <div class="admin-content" id="servicesContent">
+                    <h3>Gestion des Services</h3>
+                    <div class="service-management">
+                        <div class="service-item" data-service-id="1">
+                            <h4>Site Vitrine (250 000 FCFA)</h4>
+                            <div class="image-upload">
+                                <label>Image pour cette offre:</label>
+                                <input type="file" accept="image/*" class="service-image-input" id="service1Input">
+                                <button class="upload-button" data-service="1">Télécharger l'image</button>
+                                <div class="success-message" id="service1Success">Image téléchargée avec succès!</div>
+                            </div>
+                            <div class="image-preview" id="service1Preview"></div>
+                        </div>
+                        <div class="service-item" data-service-id="2">
+                            <h4>Site Web Complet (500 000 FCFA)</h4>
+                            <div class="image-upload">
+                                <label>Image pour cette offre:</label>
+                                <input type="file" accept="image/*" class="service-image-input" id="service2Input">
+                                <button class="upload-button" data-service="2">Télécharger l'image</button>
+                                <div class="success-message" id="service2Success">Image téléchargée avec succès!</div>
+                            </div>
+                            <div class="image-preview" id="service2Preview"></div>
+                        </div>
+                        <div class="service-item" data-service-id="3">
+                            <h4>Application Web Complète (1 500 000 FCFA)</h4>
+                            <div class="image-upload">
+                                <label>Image pour cette offre:</label>
+                                <input type="file" accept="image/*" class="service-image-input" id="service3Input">
+                                <button class="upload-button" data-service="3">Télécharger l'image</button>
+                                <div class="success-message" id="service3Success">Image téléchargée avec succès!</div>
+                            </div>
+                            <div class="image-preview" id="service3Preview"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Management -->
+                <div class="admin-content" id="galleryContent">
+                    <h3>Gestion de la Galerie</h3>
+                    <div class="image-upload">
+                        <label>Ajouter des images à la galerie:</label>
+                        <input type="file" id="galleryUpload" accept="image/*" multiple>
+                        <button class="upload-button" id="galleryUploadBtn">Télécharger les images</button>
+                        <div class="success-message" id="gallerySuccess">Images téléchargées avec succès!</div>
+                    </div>
+                    <div class="image-preview" id="galleryPreview">
+                        <!-- Gallery images will be added here -->
+                    </div>
+                </div>
+
+                <!-- Home Management -->
+                <div class="admin-content" id="homeContent">
+                    <h3>Gestion de la Page d'Accueil</h3>
+                    <div class="image-upload">
+                        <label>Image principale de la page d'accueil:</label>
+                        <input type="file" id="homeUpload" accept="image/*">
+                        <button class="upload-button" id="homeUploadBtn">Télécharger l'image</button>
+                        <div class="success-message" id="homeSuccess">Image téléchargée avec succès!</div>
+                    </div>
+                    <div class="image-preview" id="homePreview"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Cherif Créateur - Tous droits réservés</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #94a3b8;">
+            Créé avec passion par Mamadou Chérif Diallo
+        </p>
+    </footer>
+
+    <!-- Assistant Chat -->
+    <div class="assistant-container">
+        <div class="assistant-button" id="assistantBtn">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <i class="fas fa-robot"></i>
+                <span>Cherif - Assistant</span>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant-message">
+                    Bonjour ! Je suis Cherif, votre assistant virtuel. Comment puis-je vous aider aujourd'hui ?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Tapez votre message..." autocomplete="off">
+                <button id="micBtn">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
         </div>
     </div>
+
+    <!-- Code Input Modal -->
+    <div class="code-modal" id="codeModal">
+        <div class="code-content">
+            <h3>Accès Administrateur</h3>
+            <p>Entrez le code secret pour accéder au panneau d'administration</p>
+            <input type="password" id="codeInput" class="code-input" placeholder="Code secret" maxlength="6">
+            <div class="code-buttons">
+                <button class="code-btn submit" id="submitCode">Valider</button>
+                <button class="code-btn cancel" id="cancelCode">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store images in localStorage for persistence
+        const imageStorage = {
+            services: {
+                1: [],
+                2: [],
+                3: []
+            },
+            gallery: [],
+            home: []
+        };
+
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Check for saved theme preference or respect OS preference
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            const pages = document.querySelectorAll('.page');
+            const codeModal = document.getElementById('codeModal');
+            const codeInput = document.getElementById('codeInput');
+            const submitCode = document.getElementById('submitCode');
+            const cancelCode = document.getElementById('cancelCode');
+
+            const correctCode = '623971';
+
+            // Load saved images from localStorage
+            loadSavedImages();
+
+            // Navigation with admin protection
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Check if trying to access admin page
+                    if (targetPage === 'admin') {
+                        codeModal.classList.add('active');
+                        return;
+                    }
+                    
+                    // Switch to other pages normally
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    document.getElementById(targetPage).classList.add('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Code validation
+            submitCode.addEventListener('click', function() {
+                if (codeInput.value === correctCode) {
+                    // Access granted
+                    codeModal.classList.remove('active');
+                    codeInput.value = '';
+                    
+                    // Switch to admin page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    document.getElementById('admin').classList.add('active');
+                    navMenu.classList.remove('active');
+                    
+                    // Show dashboard by default
+                    showAdminSection('dashboard');
+                } else {
+                    // Wrong code
+                    codeInput.value = '';
+                    codeInput.placeholder = 'Code incorrect !';
+                    codeInput.style.borderColor = '#ef4444';
+                    setTimeout(() => {
+                        codeInput.placeholder = 'Code secret';
+                        codeInput.style.borderColor = '#cbd5e1';
+                    }, 2000);
+                }
+            });
+
+            // Cancel code input
+            cancelCode.addEventListener('click', function() {
+                codeModal.classList.remove('active');
+                codeInput.value = '';
+            });
+
+            // Allow Enter key for code submission
+            codeInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    submitCode.click();
+                }
+            });
+
+            // Close modal when clicking outside
+            codeModal.addEventListener('click', function(e) {
+                if (e.target === codeModal) {
+                    codeModal.classList.remove('active');
+                    codeInput.value = '';
+                }
+            });
+
+            // Hamburger menu
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+
+            // Service cards navigation to gallery
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Switch to gallery page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    document.getElementById('gallery').classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            // Admin dashboard navigation
+            const adminCards = document.querySelectorAll('.admin-card');
+            adminCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    showAdminSection(section);
+                });
+            });
+
+            // Service image upload functionality - FIXED VERSION
+            const uploadButtons = document.querySelectorAll('.upload-button');
+            uploadButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const serviceId = this.getAttribute('data-service');
+                    let fileInput;
+                    
+                    if (serviceId) {
+                        // Service upload
+                        fileInput = document.getElementById(`service${serviceId}Input`);
+                    } else if (this.id === 'galleryUploadBtn') {
+                        // Gallery upload
+                        fileInput = document.getElementById('galleryUpload');
+                    } else if (this.id === 'homeUploadBtn') {
+                        // Home upload
+                        fileInput = document.getElementById('homeUpload');
+                    }
+                    
+                    if (fileInput && fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        if (file && file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                if (serviceId) {
+                                    // Save service image
+                                    imageStorage.services[serviceId] = [e.target.result];
+                                    saveImagesToStorage();
+                                    
+                                    // Update preview
+                                    const preview = document.getElementById(`service${serviceId}Preview`);
+                                    preview.innerHTML = `
+                                        <div class="image-preview-item">
+                                            <img src="${e.target.result}" alt="Service ${serviceId}">
+                                            <button class="remove-image" data-service="${serviceId}">&times;</button>
+                                        </div>
+                                    `;
+                                    
+                                    // Add remove functionality
+                                    preview.querySelector('.remove-image').addEventListener('click', function() {
+                                        imageStorage.services[serviceId] = [];
+                                        saveImagesToStorage();
+                                        preview.innerHTML = '';
+                                        // Clear file input
+                                        fileInput.value = '';
+                                    });
+                                    
+                                    // Show success message
+                                    const successMsg = document.getElementById(`service${serviceId}Success`);
+                                    successMsg.style.display = 'block';
+                                    setTimeout(() => {
+                                        successMsg.style.display = 'none';
+                                    }, 3000);
+                                    
+                                    // Update the service card image immediately
+                                    updateServiceCardImage(serviceId, e.target.result);
+                                    
+                                } else if (this.id === 'galleryUploadBtn') {
+                                    // Save gallery image
+                                    imageStorage.gallery.push(e.target.result);
+                                    saveImagesToStorage();
+                                    
+                                    // Add to preview
+                                    const preview = document.getElementById('galleryPreview');
+                                    const div = document.createElement('div');
+                                    div.className = 'image-preview-item';
+                                    div.innerHTML = `
+                                        <img src="${e.target.result}" alt="Gallery">
+                                        <button class="remove-image" data-index="${imageStorage.gallery.length - 1}">&times;</button>
+                                    `;
+                                    preview.appendChild(div);
+                                    
+                                    // Add remove functionality
+                                    div.querySelector('.remove-image').addEventListener('click', function() {
+                                        const index = parseInt(this.getAttribute('data-index'));
+                                        imageStorage.gallery.splice(index, 1);
+                                        saveImagesToStorage();
+                                        // Update all indices
+                                        updateGalleryPreview();
+                                    });
+                                    
+                                    // Show success message
+                                    const successMsg = document.getElementById('gallerySuccess');
+                                    successMsg.style.display = 'block';
+                                    setTimeout(() => {
+                                        successMsg.style.display = 'none';
+                                    }, 3000);
+                                    
+                                    // Update gallery immediately
+                                    updateGalleryDisplay();
+                                    
+                                    // Clear file input
+                                    fileInput.value = '';
+                                    
+                                } else if (this.id === 'homeUploadBtn') {
+                                    // Save home image
+                                    imageStorage.home = [e.target.result];
+                                    saveImagesToStorage();
+                                    
+                                    // Update preview
+                                    const preview = document.getElementById('homePreview');
+                                    preview.innerHTML = `
+                                        <div class="image-preview-item">
+                                            <img src="${e.target.result}" alt="Home">
+                                            <button class="remove-image" data-home="true">&times;</button>
+                                        </div>
+                                    `;
+                                    
+                                    // Add remove functionality
+                                    preview.querySelector('.remove-image').addEventListener('click', function() {
+                                        imageStorage.home = [];
+                                        saveImagesToStorage();
+                                        preview.innerHTML = '';
+                                        // Clear file input
+                                        fileInput.value = '';
+                                    });
+                                    
+                                    // Show success message
+                                    const successMsg = document.getElementById('homeSuccess');
+                                    successMsg.style.display = 'block';
+                                    setTimeout(() => {
+                                        successMsg.style.display = 'none';
+                                    }, 3000);
+                                    
+                                    // Update home page immediately
+                                    updateHomeImage(e.target.result);
+                                }
+                            }.bind(this);
+                            reader.readAsDataURL(file);
+                        } else {
+                            alert('Veuillez sélectionner une image valide.');
+                        }
+                    } else {
+                        alert('Veuillez sélectionner une image avant de cliquer sur Télécharger.');
+                    }
+                });
+            });
+
+            // Show admin section
+            function showAdminSection(section) {
+                // Hide all content sections
+                document.querySelectorAll('.admin-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Show selected section
+                if (section === 'services') {
+                    document.getElementById('servicesContent').classList.add('active');
+                } else if (section === 'gallery') {
+                    document.getElementById('galleryContent').classList.add('active');
+                    updateGalleryPreview();
+                } else if (section === 'home') {
+                    document.getElementById('homeContent').classList.add('active');
+                    updateHomePreview();
+                }
+                // If section is 'dashboard', show nothing (just the dashboard cards)
+            }
+
+            // Update gallery preview
+            function updateGalleryPreview() {
+                const preview = document.getElementById('galleryPreview');
+                preview.innerHTML = '';
+                imageStorage.gallery.forEach((image, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'image-preview-item';
+                    div.innerHTML = `
+                        <img src="${image}" alt="Gallery">
+                        <button class="remove-image" data-index="${index}">&times;</button>
+                    `;
+                    preview.appendChild(div);
+                    
+                    div.querySelector('.remove-image').addEventListener('click', function() {
+                        const idx = parseInt(this.getAttribute('data-index'));
+                        imageStorage.gallery.splice(idx, 1);
+                        saveImagesToStorage();
+                        updateGalleryPreview();
+                        updateGalleryDisplay();
+                    });
+                });
+            }
+
+            // Update home preview
+            function updateHomePreview() {
+                const preview = document.getElementById('homePreview');
+                preview.innerHTML = '';
+                if (imageStorage.home.length > 0) {
+                    const div = document.createElement('div');
+                    div.className = 'image-preview-item';
+                    div.innerHTML = `
+                        <img src="${imageStorage.home[0]}" alt="Home">
+                        <button class="remove-image" data-home="true">&times;</button>
+                    `;
+                    preview.appendChild(div);
+                    
+                    div.querySelector('.remove-image').addEventListener('click', function() {
+                        imageStorage.home = [];
+                        saveImagesToStorage();
+                        updateHomePreview();
+                        resetHomeImage();
+                    });
+                }
+            }
+
+            // Update service card image
+            function updateServiceCardImage(serviceId, imageUrl) {
+                const serviceCard = document.querySelector(`.service-card[data-service="${serviceId}"]`);
+                if (serviceCard) {
+                    // Add a visual indicator that image is updated
+                    serviceCard.style.border = '2px solid var(--success)';
+                    setTimeout(() => {
+                        serviceCard.style.border = '2px solid transparent';
+                    }, 2000);
+                }
+            }
+
+            // Update gallery display
+            function updateGalleryDisplay() {
+                const galleryContainer = document.getElementById('galleryContainer');
+                galleryContainer.innerHTML = '';
+                
+                // Add existing placeholder images if no custom images
+                if (imageStorage.gallery.length === 0) {
+                    const placeholders = [
+                        {src: "https://placehold.co/300x200/2563eb/white?text=Site+Vitrine", caption: "Site Vitrine - Entreprise"},
+                        {src: "https://placehold.co/300x200/8b5cf6/white?text=Site+Complet", caption: "Site Web Complet - E-commerce"},
+                        {src: "https://placehold.co/300x200/10b981/white?text=Application+Web", caption: "Application Web - Restaurant"},
+                        {src: "https://placehold.co/300x200/f59e0b/white?text=Dashboard+Admin", caption: "Interface d'Administration"},
+                        {src: "https://placehold.co/300x200/ef4444/white?text=Mobile+App", caption: "Application Mobile Responsive"},
+                        {src: "https://placehold.co/300x200/06b6d4/white?text=Portfolio", caption: "Portfolio Professionnel"}
+                    ];
+                    
+                    placeholders.forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'gallery-item';
+                        div.innerHTML = `
+                            <img src="${item.src}" alt="${item.caption}">
+                            <div class="caption">${item.caption}</div>
+                        `;
+                        galleryContainer.appendChild(div);
+                    });
+                } else {
+                    // Add custom images
+                    imageStorage.gallery.forEach((image, index) => {
+                        const div = document.createElement('div');
+                        div.className = 'gallery-item';
+                        div.innerHTML = `
+                            <img src="${image}" alt="Custom Image ${index + 1}">
+                            <div class="caption">Image Personnalisée ${index + 1}</div>
+                        `;
+                        galleryContainer.appendChild(div);
+                    });
+                }
+            }
+
+            // Update home image
+            function updateHomeImage(imageUrl) {
+                const homeImage = document.querySelector('#home img');
+                if (homeImage) {
+                    homeImage.src = imageUrl;
+                }
+            }
+
+            // Reset home image to default
+            function resetHomeImage() {
+                const homeImage = document.querySelector('#home img');
+                if (homeImage) {
+                    homeImage.src = "https://placehold.co/600x400/2563eb/white?text=Premier+Homme+Web";
+                }
+            }
+
+            // Save images to localStorage
+            function saveImagesToStorage() {
+                try {
+                    localStorage.setItem('cherifImages', JSON.stringify(imageStorage));
+                } catch (e) {
+                    console.warn('Cannot save to localStorage:', e);
+                }
+            }
+
+            // Load images from localStorage
+            function loadSavedImages() {
+                try {
+                    const saved = localStorage.getItem('cherifImages');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        Object.assign(imageStorage, parsed);
+                        
+                        // Update displays
+                        updateGalleryDisplay();
+                        if (imageStorage.home.length > 0) {
+                            updateHomeImage(imageStorage.home[0]);
+                        }
+                        // Update service previews
+                        for (let i = 1; i <= 3; i++) {
+                            if (imageStorage.services[i].length > 0) {
+                                const preview = document.getElementById(`service${i}Preview`);
+                                preview.innerHTML = `
+                                    <div class="image-preview-item">
+                                        <img src="${imageStorage.services[i][0]}" alt="Service ${i}">
+                                        <button class="remove-image" data-service="${i}">&times;</button>
+                                    </div>
+                                `;
+                                preview.querySelector('.remove-image').addEventListener('click', function() {
+                                    imageStorage.services[i] = [];
+                                    saveImagesToStorage();
+                                    preview.innerHTML = '';
+                                });
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Cannot load from localStorage:', e);
+                }
+            }
+
+            // Assistant Chat - OPTIMIZED FOR INSTANT RESPONSE
+            const assistantBtn = document.getElementById('assistantBtn');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatMessages = document.getElementById('chatMessages');
+            const messageInput = document.getElementById('messageInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const micBtn = document.getElementById('micBtn');
+
+            let hasGreeted = false;
+            let isChatOpen = false;
+            let currentSpeech = null;
+
+            // Optimized click handler for instant response
+            assistantBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isChatOpen = !isChatOpen;
+                
+                if (isChatOpen) {
+                    chatWindow.classList.add('active');
+                    if (!hasGreeted) {
+                        setTimeout(() => {
+                            addMessage("Bonjour ! Je suis Cherif, votre assistant virtuel. J'ai été créé par Mamadou Chérif Diallo. Comment puis-je vous aider aujourd'hui ?", 'assistant');
+                        }, 100);
+                        hasGreeted = true;
+                    }
+                } else {
+                    chatWindow.classList.remove('active');
+                    // Stop any ongoing speech
+                    if (currentSpeech) {
+                        speechSynthesis.cancel();
+                        currentSpeech = null;
+                    }
+                }
+            });
+
+            // Close chat when clicking outside - optimized
+            document.addEventListener('click', function(e) {
+                if (isChatOpen && 
+                    !chatWindow.contains(e.target) && 
+                    e.target !== assistantBtn && 
+                    !assistantBtn.contains(e.target)) {
+                    isChatOpen = false;
+                    chatWindow.classList.remove('active');
+                    // Stop any ongoing speech
+                    if (currentSpeech) {
+                        speechSynthesis.cancel();
+                        currentSpeech = null;
+                    }
+                }
+            });
+
+            // Prevent closing when clicking inside chat
+            chatWindow.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            // Send message
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (message) {
+                    addMessage(message, 'user');
+                    messageInput.value = '';
+                    processMessage(message);
+                }
+            }
+
+            sendBtn.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Voice recognition - FIXED VERSION
+            let isListening = false;
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            let recognition;
+
+            // Check if browser supports speech recognition
+            if (!SpeechRecognition) {
+                console.log('Speech recognition not supported in this browser');
+                // Disable microphone button and show tooltip
+                micBtn.disabled = true;
+                micBtn.title = "Reconnaissance vocale non supportée";
+                micBtn.style.opacity = "0.5";
+                micBtn.style.cursor = "not-allowed";
+            } else {
+                // Initialize speech recognition
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'fr-FR';
+                recognition.maxAlternatives = 1;
+
+                recognition.onstart = function() {
+                    console.log('Speech recognition started');
+                    isListening = true;
+                    micBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                    micBtn.classList.add('listening');
+                };
+
+                recognition.onresult = function(event) {
+                    console.log('Speech recognition result received');
+                    const transcript = event.results[0][0].transcript;
+                    console.log('Transcript:', transcript);
+                    messageInput.value = transcript;
+                    sendMessage();
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    isListening = false;
+                    micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                    micBtn.classList.remove('listening');
+                    
+                    let errorMessage = "Désolé, une erreur est survenue.";
+                    
+                    // Handle specific error types
+                    switch(event.error) {
+                        case 'no-speech':
+                            errorMessage = "Je n'ai rien entendu. Veuillez parler plus fort.";
+                            break;
+                        case 'audio-capture':
+                            errorMessage = "Impossible d'accéder au microphone. Veuillez vérifier vos permissions.";
+                            break;
+                        case 'not-allowed':
+                            errorMessage = "Accès au microphone refusé. Veuillez autoriser l'accès dans les paramètres de votre navigateur.";
+                            break;
+                        case 'network':
+                            errorMessage = "Erreur réseau. Veuillez vérifier votre connexion internet.";
+                            break;
+                        case 'aborted':
+                            errorMessage = "Reconnaissance vocale interrompue.";
+                            break;
+                        default:
+                            errorMessage = "Erreur inconnue. Veuillez réessayer.";
+                    }
+                    
+                    addMessage(errorMessage, 'assistant');
+                };
+
+                recognition.onend = function() {
+                    console.log('Speech recognition ended');
+                    isListening = false;
+                    micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                    micBtn.classList.remove('listening');
+                };
+            }
+
+            micBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                if (!SpeechRecognition) {
+                    addMessage("La reconnaissance vocale n'est pas supportée par votre navigateur.", 'assistant');
+                    return;
+                }
+
+                if (isListening) {
+                    recognition.stop();
+                } else {
+                    // Request microphone permission first
+                    navigator.mediaDevices.getUserMedia({ audio: true })
+                        .then(function(stream) {
+                            // Stop the stream immediately as we only needed permission
+                            stream.getTracks().forEach(track => track.stop());
+                            
+                            // Start recognition
+                            recognition.start();
+                        })
+                        .catch(function(err) {
+                            console.error('Microphone permission error:', err);
+                            let permissionMessage = "Impossible d'accéder au microphone.";
+                            
+                            if (err.name === 'NotAllowedError') {
+                                permissionMessage = "Veuillez autoriser l'accès au microphone dans les paramètres de votre navigateur.";
+                            } else if (err.name === 'NotFoundError') {
+                                permissionMessage = "Aucun microphone détecté sur votre appareil.";
+                            }
+                            
+                            addMessage(permissionMessage, 'assistant');
+                        });
+                }
+            });
+
+            // Add message to chat with voice button
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(sender + '-message');
+                messageDiv.textContent = text;
+                chatMessages.appendChild(messageDiv);
+                
+                // Add voice button for assistant messages only
+                if (sender === 'assistant') {
+                    const voiceButton = document.createElement('button');
+                    voiceButton.className = 'voice-button';
+                    voiceButton.innerHTML = '<div class="sound-wave"><span></span><span></span><span></span></div>';
+                    voiceButton.title = "Lire à voix haute";
+                    
+                    voiceButton.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        speakText(text, voiceButton);
+                    });
+                    
+                    messageDiv.appendChild(voiceButton);
+                }
+                
+                // Use requestAnimationFrame for smooth scrolling
+                requestAnimationFrame(() => {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                });
+            }
+
+            // Speak text function with button animation
+            function speakText(text, button) {
+                // Stop any ongoing speech
+                if (currentSpeech) {
+                    speechSynthesis.cancel();
+                    currentSpeech = null;
+                }
+                
+                // Create new speech utterance
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'fr-FR';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                
+                // Store reference to current speech
+                currentSpeech = utterance;
+                
+                // Add button animation
+                button.classList.add('playing');
+                
+                // Handle speech events
+                utterance.onstart = function() {
+                    console.log('Speech started');
+                };
+                
+                utterance.onend = function() {
+                    console.log('Speech ended');
+                    button.classList.remove('playing');
+                    currentSpeech = null;
+                };
+                
+                utterance.onerror = function(event) {
+                    console.error('Speech synthesis error:', event);
+                    button.classList.remove('playing');
+                    currentSpeech = null;
+                };
+                
+                // Speak the text
+                speechSynthesis.speak(utterance);
+            }
+
+            // Add thinking message
+            function addThinking() {
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.classList.add('message', 'thinking');
+                thinkingDiv.textContent = 'Cherif réfléchit...';
+                thinkingDiv.id = 'thinkingMessage';
+                chatMessages.appendChild(thinkingDiv);
+                requestAnimationFrame(() => {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                });
+            }
+
+            // Remove thinking message
+            function removeThinking() {
+                const thinkingDiv = document.getElementById('thinkingMessage');
+                if (thinkingDiv) {
+                    thinkingDiv.remove();
+                }
+            }
+
+            // Typing animation
+            function typeMessage(text, callback) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', 'assistant-message');
+                messageDiv.innerHTML = '<span class="typing"></span>';
+                chatMessages.appendChild(messageDiv);
+                requestAnimationFrame(() => {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                });
+
+                const typingSpan = messageDiv.querySelector('.typing');
+                let i = 0;
+                const typingInterval = setInterval(() => {
+                    if (i < text.length) {
+                        typingSpan.textContent += text.charAt(i);
+                        i++;
+                        requestAnimationFrame(() => {
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        });
+                    } else {
+                        clearInterval(typingInterval);
+                        typingSpan.classList.remove('typing');
+                        
+                        // Add voice button after typing is complete
+                        const voiceButton = document.createElement('button');
+                        voiceButton.className = 'voice-button';
+                        voiceButton.innerHTML = '<div class="sound-wave"><span></span><span></span><span></span></div>';
+                        voiceButton.title = "Lire à voix haute";
+                        
+                        voiceButton.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            speakText(text, voiceButton);
+                        });
+                        
+                        messageDiv.appendChild(voiceButton);
+                        
+                        if (callback) callback();
+                    }
+                }, 20);
+            }
+
+            // Knowledge base - Common questions and answers
+            const knowledgeBase = {
+                // Greetings
+                'bonjour': 'Bonjour ! Comment puis-je vous aider ?',
+                'salut': 'Salut ! Je suis Cherif, votre assistant. Que puis-je faire pour vous ?',
+                'hello': 'Hello ! Comment allez-vous aujourd\'hui ?',
+                'bonsoir': 'Bonsoir ! Comment puis-je vous assister ce soir ?',
+                'salutation': 'Salutations ! Je suis ravi de vous aider.',
+
+                // About creator
+                'qui t\'a créé': 'J\'ai été créé par Mamadou Chérif Diallo.',
+                'qui est ton créateur': 'Mon créateur est Mamadou Chérif Diallo.',
+                'qui t\'a fait': 'Mamadou Chérif Diallo m\'a développé.',
+                'créateur': 'Je suis l\'œuvre de Mamadou Chérif Diallo.',
+                'qui es-tu': 'Je suis Cherif, l\'assistant virtuel de Cherif Créateur.',
+
+                // Services
+                'services': 'Nous proposons trois services principaux : Site Vitrine (250 000 FCFA), Site Web Complet (500 000 FCFA), et Application Web Complète (1 500 000 FCFA).',
+                'prix': 'Nos tarifs sont : Site Vitrine à 250 000 FCFA, Site Web Complet à 500 000 FCFA, et Application Web Complète à 1 500 000 FCFA.',
+                'combien coûte': 'Les prix varient selon le service : 250K, 500K, ou 1.5M FCFA.',
+                'site vitrine': 'Le site vitrine coûte 250 000 FCFA et inclut un design responsive, SEO de base, formulaire de contact, et une vidéo publicitaire.',
+                'site web complet': 'Le site web complet coûte 500 000 FCFA et inclut toutes les fonctionnalités du site vitrine plus un CMS, blog, galerie photo, 3 vidéos publicitaires, et un assistant vocal textuel.',
+                'application web': 'L\'application web complète coûte 1 500 000 FCFA et inclut des systèmes de réservation et paiement en ligne, interface d\'administration, assistant vocal multilingue, et vidéos publicitaires premium.',
+
+                // Features
+                'assistant vocal': 'Oui, nos solutions incluent un assistant vocal textuel. L\'application web complète propose même un assistant vocal multilingue.',
+                'vidéos publicitaires': 'Oui, chaque offre inclut des vidéos publicitaires : 1 pour le site vitrine, 3 pour le site complet, et plusieurs pour l\'application web complète.',
+                'paiement en ligne': 'Le système de paiement en ligne est inclus dans notre offre d\'application web complète à 1 500 000 FCFA.',
+                'réservation en ligne': 'Le système de réservation en ligne fait partie de notre application web complète.',
+                'interface admin': 'L\'interface d\'administration est incluse dans notre application web complète, permettant de gérer photos, menus, et contenu.',
+
+                // Contact
+                'contact': 'Vous pouvez me contacter au 70 549 13 30 ou 70 596 66 96 sur WhatsApp, ou par email à Macherif9876@gmail.com.',
+                'téléphone': 'Mes numéros sont 70 549 13 30 et 70 596 66 96. Cliquez sur les liens WhatsApp pour me contacter directement !',
+                'email': 'Mon email est Macherif9876@gmail.com.',
+                'whatsapp': 'Oui, mes numéros 70 549 13 30 et 70 596 66 96 sont connectés à WhatsApp. Cliquez sur les liens pour discuter directement !',
+
+                // Company
+                'saveteck infotech': 'Saveteck Infotech est une entreprise mondiale durable spécialisée dans la création de solutions web innovantes.',
+                'entreprise': 'Nous sommes une agence web professionnelle basée à Dakar, Sénégal.',
+                'localisation': 'Nous sommes situés à Dakar, Sénégal.',
+
+                // Technical
+                'responsive': 'Oui, tous nos sites sont entièrement responsives et s\'adaptent à tous les appareils.',
+                'mobile': 'Nos sites fonctionnent parfaitement sur mobile, tablette et ordinateur.',
+                'seo': 'Nous incluons l\'optimisation SEO de base dans toutes nos offres.',
+                'maintenance': 'La maintenance est incluse : 3 mois pour le site vitrine, 6 mois pour le site complet, et 12 mois pour l\'application web complète.',
+
+                // General
+                'merci': 'Je vous en prie ! N\'hésitez pas si vous avez d\'autres questions.',
+                'ok': 'Parfait !',
+                'd\'accord': 'D\'accord !',
+                'super': 'Super ! Je suis content de vous aider.',
+                'génial': 'Génial !',
+                'cool': 'Cool !',
+                'aide': 'Je suis là pour vous aider. Que souhaitez-vous savoir ?',
+                'question': 'Posez-moi votre question, je ferai de mon mieux pour y répondre.',
+                'information': 'Je peux vous fournir des informations sur nos services, prix, fonctionnalités, et contact.',
+                'support': 'Notre support est inclus dans tous nos forfaits de maintenance.',
+
+                // Fallback
+                'default': 'Je ne suis pas sûr de comprendre. Pouvez-vous reformuler votre question ? Je peux vous aider avec nos services, prix, fonctionnalités, ou informations de contact.'
+            };
+
+            // Process user message
+            function processMessage(message) {
+                addThinking();
+                
+                // Reduced processing delay for faster response
+                setTimeout(() => {
+                    removeThinking();
+                    
+                    const lowerMessage = message.toLowerCase();
+                    let response = knowledgeBase['default'];
+                    
+                    for (const [key, value] of Object.entries(knowledgeBase)) {
+                        if (key === 'default') continue;
+                        
+                        if (lowerMessage.includes(key) || 
+                            key.split(' ').some(word => lowerMessage.includes(word))) {
+                            response = value;
+                            break;
+                        }
+                    }
+                    
+                    typeMessage(response, () => {
+                        // Auto-speak the first response if user hasn't interacted with voice yet
+                        if (chatMessages.children.length === 2) {
+                            const firstAssistantMsg = chatMessages.querySelector('.assistant-message');
+                            const voiceBtn = firstAssistantMsg.querySelector('.voice-button');
+                            if (voiceBtn) {
+                                setTimeout(() => {
+                                    speakText(response, voiceBtn);
+                                }, 500);
+                            }
+                        }
+                    });
+                }, 800);
+            }
+
+            // Initialize speech synthesis
+            let speechInitialized = false;
+            const initSpeech = () => {
+                if (!speechInitialized && 'speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance('');
+                    speechSynthesis.speak(utterance);
+                    speechInitialized = true;
+                }
+            };
+
+            // Initialize on first user interaction
+            ['click', 'touchstart'].forEach(event => {
+                document.addEventListener(event, initSpeech, { once: true });
+            });
+        });
+    </script>
 </body>
 </html>
+```
